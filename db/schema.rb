@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_15_031550) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_15_041706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_users", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "user_id"
+    t.integer "role", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["user_id"], name: "index_account_users_on_user_id"
+  end
+
+  create_table "accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -91,6 +106,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_15_031550) do
     t.integer "preferred_max_hourly_rate"
     t.integer "preferred_min_salary"
     t.integer "preferred_max_salary"
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_developers_on_account_id"
     t.index ["user_id"], name: "index_developers_on_user_id"
   end
 

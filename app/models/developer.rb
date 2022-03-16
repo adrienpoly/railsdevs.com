@@ -11,6 +11,7 @@ class Developer < ApplicationRecord
   }
 
   belongs_to :user
+  belongs_to :account
   has_many :conversations, -> { visible }
   has_one :location, dependent: :destroy, autosave: true
   has_one :role_level, dependent: :destroy, autosave: true
